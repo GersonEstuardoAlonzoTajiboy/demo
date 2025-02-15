@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.demo.controller.DashboardController"
+      alignment="CENTER" spacing="10" prefWidth="600" prefHeight="400" styleClass="dashboard-root">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="Dashboard / Management View" style="-fx-font-size: 24px; -fx-text-fill: #333;"/>
+</VBox>

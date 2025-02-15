@@ -1,0 +1,27 @@
+/* Style for the title */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #6200EA;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 3, 0, 0, 1);
+}
+
+/* Text fields expand to 100% of available width */
+.username-field,
+.password-field {
+    -fx-pref-width: 100%;
+}
+
+/* Style for buttons */
+.login-button {
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-color: #6200EA;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+}
+
+/* Login root container (if you want a background color) */
+.stack-pane {
+    -fx-background-color: #F5F5F5;
+}
