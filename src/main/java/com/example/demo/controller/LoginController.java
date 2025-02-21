@@ -12,6 +12,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -33,7 +34,7 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    public Button loginButton;
+    private Button loginButton;
 
     @FXML
     private Label errorLabel;
@@ -64,6 +65,9 @@ public class LoginController {
         // Link the text fields to the login model
         usernameField.textProperty().bindBidirectional(loginModel.usernameProperty());
         passwordField.textProperty().bindBidirectional(loginModel.passwordProperty());
+
+        // Disable the login button if the form is invalid (using the valid property of the model)
+        loginButton.disableProperty().bind(loginModel.validProperty().not());
 
         // Real-time validation for the username field
         validator.createCheck()
@@ -107,6 +111,7 @@ public class LoginController {
             navigateToDashboard();
         } else {
             errorLabel.setText("Invalid credentials!");
+            errorLabel.setVisible(true);
         }
     }
 
@@ -118,10 +123,15 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
             Parent dashboardRoot = loader.load();
             Scene dashboardScene = new Scene(dashboardRoot);
-            dashboardScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/dashboard.css")).toExternalForm());
+            dashboardScene.getStylesheets().add(
+                    Objects.requireNonNull(
+                                    getClass().getResource("/css/dashboard.css")
+                            )
+                            .toExternalForm()
+            );
             primaryStage.setScene(dashboardScene);
         } catch (IOException ioException) {
-            LOGGER.info(ioException.getMessage());
+            LOGGER.log(Level.SEVERE, "Error navigating to dashboard", ioException);
         }
     }
 }
