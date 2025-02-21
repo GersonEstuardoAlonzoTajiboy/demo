@@ -17,10 +17,7 @@ public class UserController {
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
 
     @FXML
-    private TextField fullNameTextField;
-
-    @FXML
-    private TextField emailTextField;
+    private TextField usernameTextField;
 
     @FXML
     private PasswordField passwordTextField;
@@ -40,16 +37,15 @@ public class UserController {
 
     @FXML
     private void handleSave() {
-        String fullName = fullNameTextField.getText();
-        String email = emailTextField.getText();
+        String username = usernameTextField.getText();
         String password = passwordTextField.getText();
         RoleModel selectedRole = roleComboBox.getSelectionModel().getSelectedItem();
 
-        if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             LOGGER.warning("All fields are required.");
         }
 
-        UserModel userModel = new UserModel(0, fullName, email, password, selectedRole);
+        UserModel userModel = new UserModel(0, username, password, selectedRole);
 
         UserRepository.insertUser(userModel);
 
