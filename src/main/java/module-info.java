@@ -10,7 +10,8 @@ module com.example.demo {
     requires org.kordamp.ikonli.fontawesome5;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
-    requires java.logging;
+    requires java.desktop;
+    requires java.sql;
 
     opens com.example.demo to javafx.fxml;
     exports com.example.demo;

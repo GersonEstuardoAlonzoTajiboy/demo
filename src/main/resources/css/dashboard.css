@@ -1,5 +1,7 @@
 /* dashboard.css */
-.dashboard-root {
-    -fx-background-color: #f5f5f5;
-    -fx-background-size: cover;
+.dashboard-title {
+    -fx-font-size: 28px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+    -fx-padding: 15 0 15 0;
 }

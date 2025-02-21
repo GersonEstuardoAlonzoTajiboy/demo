@@ -43,8 +43,8 @@ public class LoginController {
     private final LoginModel loginModel = new LoginModel();
 
     // Dummy credentials for testing
-    private static final String DUMMY_USERNAME = "dummy_username@gmail.com";
-    private static final String DUMMY_PASSWORD = "dummy_password_abc";
+    private static final String DUMMY_USERNAME = "user@gmail.com";
+    private static final String DUMMY_PASSWORD = "12345";
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;

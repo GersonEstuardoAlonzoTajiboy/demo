@@ -4,14 +4,27 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.demo.controller.DashboardController"
-      alignment="CENTER" spacing="10" prefWidth="600" prefHeight="400" styleClass="dashboard-root">
 
-    <padding>
-        <Insets top="15" right="15" bottom="15" left="15"/>
-    </padding>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo.controller.DashboardController"
+            prefWidth="600" prefHeight="400">
 
-    <Label text="Dashboard / Management View" style="-fx-font-size: 24px; -fx-text-fill: #333;"/>
-</VBox>
+    <top>
+        <Label text="Dashboard / Management View" styleClass="dashboard-title" BorderPane.alignment="CENTER"/>
+    </top>
+
+    <!-- Container for TilesFX -->
+    <center>
+        <HBox fx:id="tileContainer" spacing="20" alignment="CENTER" BorderPane.alignment="CENTER"/>
+    </center>
+
+    <!-- Container for the form (FormsFX) -->
+    <bottom>
+        <VBox fx:id="formContainer" spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+        </VBox>
+    </bottom>
+</BorderPane>
