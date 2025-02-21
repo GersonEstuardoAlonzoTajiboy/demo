@@ -12,20 +12,19 @@ public class UserRepository {
 
     public static void insertUser(UserModel userModel) {
         String sql = """
-                INSERT INTO users (full_name, email, password, role_id)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO users (username, password, role_id)
+                VALUES (?, ?, ?)
                 """;
         try (
                 Connection connection = DBConnectionUtils.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
-            preparedStatement.setString(1, userModel.getFullName());
-            preparedStatement.setString(2, userModel.getEmail());
-            preparedStatement.setString(3, userModel.getPassword());
+            preparedStatement.setString(1, userModel.getUsername());
+            preparedStatement.setString(2, userModel.getPassword());
             if (userModel.getRole() != null) {
-                preparedStatement.setInt(4, userModel.getRole().getId());
+                preparedStatement.setInt(3, userModel.getRole().getId());
             } else {
-                preparedStatement.setNull(4, Types.INTEGER);
+                preparedStatement.setNull(3, Types.INTEGER);
             }
             int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
