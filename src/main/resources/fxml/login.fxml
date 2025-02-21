@@ -8,7 +8,8 @@
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="com.example.demo.controller.LoginController"
-           prefWidth="600" prefHeight="400">
+           prefWidth="600" prefHeight="400"
+           stylesheets="@/css/login.css">
 
     <VBox alignment="CENTER" spacing="10" maxWidth="400">
         <padding>
