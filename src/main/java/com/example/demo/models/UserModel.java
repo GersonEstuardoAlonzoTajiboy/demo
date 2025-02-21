@@ -5,15 +5,13 @@ import javafx.beans.property.*;
 public class UserModel {
 
     private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty fullName = new SimpleStringProperty();
-    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty username = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
     private final ObjectProperty<RoleModel> role = new SimpleObjectProperty<>();
 
-    public UserModel(int id, String fullName, String email, String password, RoleModel role) {
+    public UserModel(int id, String username, String password, RoleModel role) {
         this.id.set(id);
-        this.fullName.set(fullName);
-        this.email.set(email);
+        this.username.set(username);
         this.password.set(password);
         this.role.set(role);
     }
@@ -30,28 +28,16 @@ public class UserModel {
         return id;
     }
 
-    public String getFullName() {
-        return fullName.get();
+    public String getUsername() {
+        return username.get();
     }
 
-    public void setFullName(String fullName) {
-        this.fullName.set(fullName);
+    public void setUsername(String username) {
+        this.username.set(username);
     }
 
-    public StringProperty fullNameProperty() {
-        return fullName;
-    }
-
-    public String getEmail() {
-        return email.get();
-    }
-
-    public void setEmail(String email) {
-        this.email.set(email);
-    }
-
-    public StringProperty emailProperty() {
-        return email;
+    public StringProperty usernameProperty() {
+        return username;
     }
 
     public String getPassword() {
