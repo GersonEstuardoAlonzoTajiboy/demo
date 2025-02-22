@@ -50,11 +50,5 @@ public class DashboardController implements Initializable {
         // Use FormRenderer to render the form
         FormRenderer formRenderer = new FormRenderer(form);
         formContainer.getChildren().add(formRenderer);
-
-        // --------- ControlsFX: Show a notification ----------
-        Notifications.create()
-                .title("Dashboard Loaded")
-                .text("Welcome to the Dashboard!")
-                .showInformation();
     }
 }
