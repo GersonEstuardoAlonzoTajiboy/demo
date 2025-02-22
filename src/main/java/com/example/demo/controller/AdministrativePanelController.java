@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -41,6 +42,12 @@ public class AdministrativePanelController {
 
         // Load the "Dashboard" view by default
         loadView("/fxml/Dashboard.fxml");
+
+        // --------- ControlsFX: Show a notification ----------
+        Notifications.create()
+                .title("Administrative Panel Loaded")
+                .text("Welcome to the Administrative Panel!")
+                .showInformation();
     }
 
     /**
