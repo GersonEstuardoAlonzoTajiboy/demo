@@ -14,19 +14,19 @@ public class DBConnectionUtils {
     // Connection pool configuration
     private static final HikariDataSource HIKARI_DATA_SOURCE;
 
-    private DBConnectionUtils() {
-        throw new UnsupportedOperationException("Utility class. Do not instantiate!");
-    }
-
     static {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/product_database?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/product_database?useSSL=false&serverTimezone=UTC");
         hikariConfig.setUsername("root");
         hikariConfig.setPassword("12345");
         hikariConfig.setMaximumPoolSize(10);
         hikariConfig.setMinimumIdle(2);
         hikariConfig.setPoolName("ProductDatabasePool");
         HIKARI_DATA_SOURCE = new HikariDataSource(hikariConfig);
+    }
+
+    private DBConnectionUtils() {
+        throw new UnsupportedOperationException("Utility class. Do not instantiate!");
     }
 
     /**
