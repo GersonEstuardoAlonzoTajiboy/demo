@@ -48,6 +48,13 @@ public class UserRepository {
         }
     }
 
+    /**
+     * Query the database to get a user based on the credentials.
+     *
+     * @param username User logged in.
+     * @param password Password entered.
+     * @return A UserModel object if a match is found, or null otherwise.
+     */
     public static UserModel findUserByCredentials(String username, String password) {
         String sql = """
                 SELECT u.id, u.username, u.password, r.id AS role_id, r.name AS role_name
@@ -80,5 +87,6 @@ public class UserRepository {
         } catch (SQLException sqlException) {
             LOGGER.info(sqlException.getMessage());
         }
+        return null;
     }
 }
