@@ -11,6 +11,7 @@ module com.example.demo {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.desktop;
+    requires com.zaxxer.hikari;
     requires java.sql;
 
     opens com.example.demo to javafx.fxml;
