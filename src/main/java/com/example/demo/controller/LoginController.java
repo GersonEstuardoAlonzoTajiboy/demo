@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.LoginModel;
+import com.example.demo.models.UserModel;
+import com.example.demo.repository.UserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,8 +19,7 @@ import java.util.logging.Logger;
 
 /**
  * Controller for the login form.
- * Integrates validations with ValidatorFX, uses a dummy user (admin/password)
- * and redirects to the dashboard upon successful login.
+ * Validates credentials against the database via UserRepository and navigates to the dashboard upon success.
  */
 public class LoginController {
 
@@ -42,10 +43,6 @@ public class LoginController {
     private Stage primaryStage;
     private final Validator validator = new Validator();
     private final LoginModel loginModel = new LoginModel();
-
-    // Dummy credentials for testing
-    private static final String DUMMY_USERNAME = "user@gmail.com";
-    private static final String DUMMY_PASSWORD = "12345";
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -104,9 +101,9 @@ public class LoginController {
             return;
         }
 
-        // Check credentials using the model
-        if (loginModel.getUsername().equals(DUMMY_USERNAME) &&
-                passwordField.getText().equals(DUMMY_PASSWORD)) {
+        // Query the user in the database
+        UserModel userModel = UserRepository.findUserByCredentials(loginModel.getUsername(), loginModel.getPassword());
+        if (userModel != null) {
             errorLabel.setVisible(false);
             navigateToDashboard();
         } else {
