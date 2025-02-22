@@ -60,7 +60,7 @@ public class AdministrativePanelController {
             Node view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
             contentArea.getChildren().setAll(view);
         } catch (IOException ioException) {
-            LOGGER.log(Level.SEVERE, "Error loading view " + fxmlPath, ioException);
+            LOGGER.log(Level.SEVERE, String.format("Error loading view %s", fxmlPath), ioException);
         }
     }
 }
