@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.demo.controller.AdministrativePanelController"
-            prefHeight="800.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="600.0">
 
     <!-- Header -->
     <top>
