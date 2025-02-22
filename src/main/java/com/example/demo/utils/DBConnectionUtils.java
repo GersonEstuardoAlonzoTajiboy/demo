@@ -14,6 +14,10 @@ public class DBConnectionUtils {
     // Connection pool configuration
     private static final HikariDataSource HIKARI_DATA_SOURCE;
 
+    private DBConnectionUtils() {
+        throw new UnsupportedOperationException("Utility class. Do not instantiate!");
+    }
+
     static {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/product_database?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
