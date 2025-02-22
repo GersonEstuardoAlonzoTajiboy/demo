@@ -105,7 +105,7 @@ public class LoginController {
         UserModel userModel = UserRepository.findUserByCredentials(loginModel.getUsername(), loginModel.getPassword());
         if (userModel != null) {
             errorLabel.setVisible(false);
-            navigateToDashboard();
+            navigateToAdministrativePanel();
         } else {
             errorLabel.setText("Invalid credentials!");
             errorLabel.setVisible(true);
@@ -113,22 +113,22 @@ public class LoginController {
     }
 
     /**
-     * Navigate to the dashboard by loading the corresponding FXML.
+     * Navigate to the administrative panel by loading the corresponding FXML.
      */
-    private void navigateToDashboard() {
+    private void navigateToAdministrativePanel() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/administrative-panel.fxml"));
             Parent dashboardRoot = loader.load();
             Scene dashboardScene = new Scene(dashboardRoot);
             dashboardScene.getStylesheets().add(
                     Objects.requireNonNull(
-                                    getClass().getResource("/css/dashboard.css")
+                                    getClass().getResource("/css/administrative-panel.css")
                             )
                             .toExternalForm()
             );
             primaryStage.setScene(dashboardScene);
         } catch (IOException ioException) {
-            LOGGER.log(Level.SEVERE, "Error navigating to dashboard", ioException);
+            LOGGER.log(Level.SEVERE, "Error navigating to administrative panel", ioException);
         }
     }
 }

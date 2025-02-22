@@ -1,0 +1,37 @@
+/* administrative-panel.css */
+.administrative-panel-header {
+    -fx-background-color: #f8f8f8;
+    -fx-padding: 10;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.administrative-panel-title {
+    -fx-font-size: 28px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+    -fx-padding: 15 0 15 0;
+}
+
+.navigation {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.nav-button {
+    -fx-font-size: 14px;
+    -fx-pref-width: 180px;
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.content-area {
+    -fx-background-color: #fff;
+    -fx-padding: 20;
+}

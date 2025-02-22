@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo.controller.AdministrativePanelController"
+            prefHeight="800.0" prefWidth="600.0">
+
+    <!-- Header -->
+    <top>
+        <HBox styleClass="administrative-panel-header" spacing="10" alignment="CENTER_LEFT"
+              BorderPane.alignment="CENTER">
+            <Label text="Administrative Panel" styleClass="administrative-panel-title"/>
+        </HBox>
+    </top>
+
+    <!-- Fixed side navigation -->
+    <left>
+        <VBox fx:id="navContainer" spacing="10" styleClass="navigation" prefWidth="200" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="dashboardButton" text="Dashboard" styleClass="nav-button"/>
+                <Button fx:id="usersButton" text="Users" styleClass="nav-button"/>
+            </children>
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+        </VBox>
+    </left>
+
+    <!-- Dynamic content area -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>
