@@ -35,7 +35,7 @@ public class UserController {
     @FXML
     private ComboBox<RoleModel> roleComboBox;
 
-    private ObservableList<UserModel> userModelObservableList = FXCollections.observableArrayList();
+    private final ObservableList<UserModel> userModelObservableList = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
@@ -89,6 +89,7 @@ public class UserController {
         UserModel selectedUserModel = usersTable.getSelectionModel().getSelectedItem();
         if (selectedUserModel == null) {
             showAlert(Alert.AlertType.WARNING, "No selection", "Please select a user to update.");
+            return;
         }
 
         String username = usernameTextField.getText();
@@ -96,6 +97,7 @@ public class UserController {
         RoleModel selectedRole = roleComboBox.getSelectionModel().getSelectedItem();
         if (username.isEmpty() || password.isEmpty() || selectedRole == null) {
             showAlert(Alert.AlertType.WARNING, "Validation", "All fields are required.");
+            return;
         }
 
         selectedUserModel.setUsername(username);
@@ -112,6 +114,7 @@ public class UserController {
         UserModel selectedUserModel = usersTable.getSelectionModel().getSelectedItem();
         if (selectedUserModel == null) {
             showAlert(Alert.AlertType.WARNING, "No selection", "Please select a user to delete");
+            return;
         }
 
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
