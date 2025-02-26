@@ -6,15 +6,25 @@ import com.example.demo.repository.UserRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.logging.Logger;
 
 public class UserController {
 
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+
+    @FXML
+    private TableView<UserModel> userTable;
+
+    @FXML
+    private TableColumn<UserModel, Integer> userIdColumn;
+
+    @FXML
+    private TableColumn<UserModel, String> usernameColumn;
+
+    @FXML
+    private TableColumn<UserModel, String> roleNameColumn;
 
     @FXML
     private TextField usernameTextField;
