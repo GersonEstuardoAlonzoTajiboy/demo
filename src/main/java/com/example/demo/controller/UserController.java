@@ -121,7 +121,7 @@ public class UserController {
         confirmationAlert.setTitle("Confirm Deletion");
         confirmationAlert.setHeaderText(null);
         confirmationAlert.setContentText("Are you sure you want to delete the selected user?");
-        if (confirmationAlert.showAndWait().get() == ButtonType.OK) {
+        if (confirmationAlert.showAndWait().filter(response -> response == ButtonType.OK).isPresent()) {
             UserRepository.deleteUser(selectedUserModel.getId());
             showAlert(Alert.AlertType.INFORMATION, "User Deletion", "User deleted successfully.");
             loadUsers();
