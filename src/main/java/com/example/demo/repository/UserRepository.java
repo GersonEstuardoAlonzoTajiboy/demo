@@ -5,6 +5,8 @@ import com.example.demo.models.UserModel;
 import com.example.demo.utils.DBConnectionUtils;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -13,6 +15,10 @@ import java.util.logging.Logger;
 public class UserRepository {
 
     private static final Logger LOGGER = Logger.getLogger(UserRepository.class.getName());
+
+    private UserRepository() {
+        throw new UnsupportedOperationException("Repository class. Do not instantiate!");
+    }
 
     /**
      * Inserts a new user into the database.
@@ -46,6 +52,85 @@ public class UserRepository {
         } catch (SQLException sqlException) {
             LOGGER.info(sqlException.getMessage());
         }
+    }
+
+    /**
+     * Updates an existing user in the database.
+     *
+     * @param userModel The user to update.
+     */
+    public static void updateUser(UserModel userModel) {
+        String sql = """
+                UPDATE users
+                SET username = ?, password = ?, role_id = ?
+                WHERE id = ?
+                """;
+        try (Connection connection = DBConnectionUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setString(1, userModel.getUsername());
+            preparedStatement.setString(2, userModel.getPassword());
+            if (userModel.getRole() != null) {
+                preparedStatement.setInt(3, userModel.getRole().getId());
+            } else {
+                preparedStatement.setNull(3, Types.INTEGER);
+            }
+            preparedStatement.setInt(4, userModel.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            LOGGER.info(sqlException.getMessage());
+        }
+    }
+
+    /**
+     * Deletes a user from the database.
+     *
+     * @param userId The id of the user to delete.
+     */
+    public static void deleteUser(int userId) {
+        String sql = """
+                DELETE FROM users
+                WHERE id = ?
+                """;
+        try (Connection connection = DBConnectionUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)
+        ) {
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            LOGGER.info(sqlException.getMessage());
+        }
+    }
+
+    /**
+     * Retrieves all users from the database.
+     *
+     * @return A list of UserModel objects.
+     */
+    public static List<UserModel> getAllUsers() {
+        List<UserModel> usersModelList = new ArrayList<>();
+        String sql = """
+                SELECT u.id, u.username, u.password, r.id AS role_id, r.name AS role_name
+                FROM users u
+                LEFT JOIN roles r ON u.role_id = r.id;
+                """;
+        try (Connection connection = DBConnectionUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()
+        ) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                int roleId = resultSet.getInt("role_id");
+                String roleName = resultSet.getString("role_name");
+                RoleModel roleModel = roleName != null ? new RoleModel(roleId, roleName) : null;
+                usersModelList.add(new UserModel(id, username, password, roleModel));
+            }
+        } catch (SQLException sqlException) {
+            LOGGER.info(sqlException.getMessage());
+        }
+        return usersModelList;
     }
 
     /**
