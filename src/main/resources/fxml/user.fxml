@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.demo.controller.UserController"
@@ -17,5 +15,24 @@
         <Insets top="15" right="15" bottom="15" left="15"/>
     </padding>
 
-    <Label text="User Management" />
+    <Label text="User Management" styleClass="dashboard-title"/>
+
+    <!-- Table to list users -->
+    <TableView fx:id="usersTable" prefWidth="200.00" prefHeight="580.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50.0"/>
+            <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200.0"/>
+            <TableColumn fx:id="roleNameColumn" text="Role" prefWidth="100.0"/>
+        </columns>
+    </TableView>
+
+    <!-- Form for user data -->
+
+    <!-- Buttons for actions -->
+    <HBox spacing="10">
+        <Button text="Create" onAction="#handleCreate"/>
+        <Button text="Update" onAction="#handleUpdate"/>
+        <Button text="Delete" onAction="#handleDelete"/>
+        <Button text="Clear" onAction="#handleClear"/>
+    </HBox>
 </VBox>
