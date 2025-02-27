@@ -27,6 +27,20 @@
     </TableView>
 
     <!-- Form for user data -->
+    <HBox spacing="10">
+        <VBox spacing="5">
+            <Label text="Username:"/>
+            <TextField fx:id="usernameTextField" promptText="Enter username"/>
+        </VBox>
+        <VBox spacing="5">
+            <Label text="Password"/>
+            <PasswordField fx:id="passwordTextField" promptText="Enter password"/>
+        </VBox>
+        <VBox spacing="5">
+            <Label text="Role:"/>
+            <ComboBox fx:id="roleComboBox" promptText="Selected role"/>
+        </VBox>
+    </HBox>
 
     <!-- Buttons for actions -->
     <HBox spacing="10">
