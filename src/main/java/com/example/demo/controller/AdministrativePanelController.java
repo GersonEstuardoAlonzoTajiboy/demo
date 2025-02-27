@@ -50,29 +50,37 @@ public class AdministrativePanelController {
         // Load the "Dashboard" view by default
         loadView("/fxml/dashboard.fxml");
 
-        // Set the logout button to return to the Login screen
-        logoutButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
-                Parent loginRoot = loader.load();
-                Stage stage = (Stage) logoutButton.getScene().getWindow();
-                Scene loginScene = new Scene(loginRoot);
-                loginScene.getStylesheets().add(
-                        Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm()
-                );
-                stage.setScene(loginScene);
-                stage.setTitle("Login");
-            } catch (IOException ioException) {
-                LOGGER.log(Level.SEVERE, "Error loading login screen during logout", ioException);
-            }
-        });
-
         // --------- ControlsFX: Show a notification ----------
         Notifications.create()
                 .title("Administrative Panel Loaded")
                 .text("Welcome to the Administrative Panel!")
                 .showInformation();
     }
+
+    @FXML
+    private void handleLogout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            Parent loginRoot = loader.load();
+
+            // Get the Login controller
+            LoginController loginController = loader.getController();
+
+            // Get the current Stage from a node (e.g. logoutButton or any other node)
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+
+            // Sets the Stage reference in the login controller
+            loginController.setPrimaryStage(stage);
+
+            Scene loginScene = new Scene(loginRoot);
+            loginScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm());
+            stage.setScene(loginScene);
+            stage.setTitle("Login");
+        } catch (IOException ex) {
+            LOGGER.log(Level.SEVERE, "Error loading login screen during logout", ex);
+        }
+    }
+
 
     /**
      * Loads a view into the content area.
