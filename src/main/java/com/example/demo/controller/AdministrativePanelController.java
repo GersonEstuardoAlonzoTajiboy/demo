@@ -3,9 +3,12 @@ package com.example.demo.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -33,6 +36,9 @@ public class AdministrativePanelController {
     private Button settingsButton;
 
     @FXML
+    private Button logoutButton;
+
+    @FXML
     private StackPane contentArea;
 
     @FXML
@@ -43,6 +49,23 @@ public class AdministrativePanelController {
 
         // Load the "Dashboard" view by default
         loadView("/fxml/dashboard.fxml");
+
+        // Set the logout button to return to the Login screen
+        logoutButton.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+                Parent loginRoot = loader.load();
+                Stage stage = (Stage) logoutButton.getScene().getWindow();
+                Scene loginScene = new Scene(loginRoot);
+                loginScene.getStylesheets().add(
+                        Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm()
+                );
+                stage.setScene(loginScene);
+                stage.setTitle("Login");
+            } catch (IOException ioException) {
+                LOGGER.log(Level.SEVERE, "Error loading login screen during logout", ioException);
+            }
+        });
 
         // --------- ControlsFX: Show a notification ----------
         Notifications.create()

@@ -23,6 +23,11 @@
         <VBox fx:id="navContainer" spacing="10" styleClass="navigation" prefWidth="200" BorderPane.alignment="CENTER">
             <Button fx:id="dashboardButton" text="Dashboard" styleClass="nav-button"/>
             <Button fx:id="usersButton" text="Users" styleClass="nav-button"/>
+
+            <!-- Space to push logout down -->
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button fx:id="logoutButton" text="Logout" styleClass="nav-button"/>
+
             <padding>
                 <Insets top="10" bottom="10" left="10" right="10"/>
             </padding>

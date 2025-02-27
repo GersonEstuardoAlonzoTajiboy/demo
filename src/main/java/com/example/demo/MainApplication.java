@@ -25,7 +25,9 @@ public class MainApplication extends Application {
         Scene scene = new Scene(root);
 
         // Add the application CSS from resources/css/login.css
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm());
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm()
+        );
 
         primaryStage.setTitle("Login");
         primaryStage.setScene(scene);
