@@ -26,7 +26,7 @@
 
             <!-- Space to push logout down -->
             <Region VBox.vgrow="ALWAYS"/>
-            <Button fx:id="logoutButton" text="Logout" styleClass="nav-button"/>
+            <Button fx:id="logoutButton" text="Logout" onAction="#handleLogout" styleClass="nav-button"/>
 
             <padding>
                 <Insets top="10" bottom="10" left="10" right="10"/>
