@@ -38,11 +38,11 @@ public class AdministrativePanelController {
     @FXML
     private void initialize() {
         // Setting events for navigation buttons
-        dashboardButton.setOnAction(event -> loadView("/fxml/Dashboard.fxml"));
-        usersButton.setOnAction(event -> loadView("/fxml/Users.fxml"));
+        dashboardButton.setOnAction(event -> loadView("/fxml/dashboard.fxml"));
+        usersButton.setOnAction(event -> loadView("/fxml/users.fxml"));
 
         // Load the "Dashboard" view by default
-        loadView("/fxml/Dashboard.fxml");
+        loadView("/fxml/dashboard.fxml");
 
         // --------- ControlsFX: Show a notification ----------
         Notifications.create()
