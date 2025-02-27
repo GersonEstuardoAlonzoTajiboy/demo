@@ -129,6 +129,12 @@ public class UserController {
         }
     }
 
+    @FXML
+    private void handleClear() {
+        clearFields();
+        usersTable.getSelectionModel().clearSelection();
+    }
+
     private void loadUsers() {
         List<UserModel> userModelList = UserRepository.getAllUsers();
         userModelObservableList.setAll(userModelList);
