@@ -21,10 +21,8 @@
     <!-- Fixed side navigation -->
     <left>
         <VBox fx:id="navContainer" spacing="10" styleClass="navigation" prefWidth="200" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="dashboardButton" text="Dashboard" styleClass="nav-button"/>
-                <Button fx:id="usersButton" text="Users" styleClass="nav-button"/>
-            </children>
+            <Button fx:id="dashboardButton" text="Dashboard" styleClass="nav-button"/>
+            <Button fx:id="usersButton" text="Users" styleClass="nav-button"/>
             <padding>
                 <Insets top="10" bottom="10" left="10" right="10"/>
             </padding>
