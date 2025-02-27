@@ -39,7 +39,7 @@ public class AdministrativePanelController {
     private void initialize() {
         // Setting events for navigation buttons
         dashboardButton.setOnAction(event -> loadView("/fxml/dashboard.fxml"));
-        usersButton.setOnAction(event -> loadView("/fxml/users.fxml"));
+        usersButton.setOnAction(event -> loadView("/fxml/user.fxml"));
 
         // Load the "Dashboard" view by default
         loadView("/fxml/dashboard.fxml");
