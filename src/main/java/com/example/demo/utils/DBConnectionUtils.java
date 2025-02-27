@@ -16,7 +16,7 @@ public class DBConnectionUtils {
 
     static {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/product_database?useSSL=false&serverTimezone=UTC");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/product_database?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
         hikariConfig.setUsername("root");
         hikariConfig.setPassword("12345");
         hikariConfig.setMaximumPoolSize(10);
