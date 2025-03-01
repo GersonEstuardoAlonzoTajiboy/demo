@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.SessionManager;
+import com.example.demo.models.UserModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -43,6 +45,13 @@ public class AdministrativePanelController {
 
     @FXML
     private void initialize() {
+        // Check the authenticated user's role and adjust the UI
+        UserModel currentUser = SessionManager.getInstance().getCurrentUser();
+        if (currentUser != null && !"ADMINISTRATOR".equalsIgnoreCase(currentUser.getRole().getName())) {
+            usersButton.setDisable(true);
+            usersButton.setVisible(false);
+        }
+
         // Setting events for navigation buttons
         dashboardButton.setOnAction(event -> loadView("/fxml/dashboard.fxml"));
         usersButton.setOnAction(event -> loadView("/fxml/user.fxml"));
