@@ -98,6 +98,8 @@ public class LoginController {
                     String password = loginModel.getPassword();
                     if (password == null || password.trim().isEmpty()) {
                         context.error("Password is required");
+                    } else if (password.contains(" ")) {
+                        context.error("Password must not contain spaces");
                     }
                 })
                 .decorates(passwordField)
@@ -149,9 +151,7 @@ public class LoginController {
         if (debounceTimeline != null) {
             debounceTimeline.stop();
         }
-        debounceTimeline = new Timeline(new KeyFrame(Duration.millis(300), event -> {
-            validator.validate();
-        }));
+        debounceTimeline = new Timeline(new KeyFrame(Duration.millis(300), event -> validator.validate()));
         debounceTimeline.play();
     }
 }
