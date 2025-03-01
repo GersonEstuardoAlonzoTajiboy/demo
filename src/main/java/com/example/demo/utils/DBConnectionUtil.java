@@ -9,7 +9,7 @@ import java.sql.SQLException;
 /**
  * Utility for managing database connections using HikariCP.
  */
-public class DBConnectionUtils {
+public class DBConnectionUtil {
 
     // Connection pool configuration
     private static final HikariDataSource HIKARI_DATA_SOURCE;
@@ -25,7 +25,7 @@ public class DBConnectionUtils {
         HIKARI_DATA_SOURCE = new HikariDataSource(hikariConfig);
     }
 
-    private DBConnectionUtils() {
+    private DBConnectionUtil() {
         throw new UnsupportedOperationException("Utility class. Do not instantiate!");
     }
 

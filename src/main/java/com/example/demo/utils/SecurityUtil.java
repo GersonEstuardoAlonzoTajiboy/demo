@@ -1,4 +1,4 @@
 package com.example.demo.utils;
 
-public class SecurityUtils {
+public class SecurityUtil {
 }

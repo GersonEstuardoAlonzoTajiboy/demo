@@ -2,7 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.models.RoleModel;
 import com.example.demo.models.UserModel;
-import com.example.demo.utils.DBConnectionUtils;
+import com.example.demo.utils.DBConnectionUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class UserRepository {
                 VALUES (?, ?, ?)
                 """;
         try (
-                Connection connection = DBConnectionUtils.getConnection();
+                Connection connection = DBConnectionUtil.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
         ) {
             preparedStatement.setString(1, userModel.getUsername());
@@ -65,7 +65,7 @@ public class UserRepository {
                 SET username = ?, password = ?, role_id = ?
                 WHERE id = ?
                 """;
-        try (Connection connection = DBConnectionUtils.getConnection();
+        try (Connection connection = DBConnectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
             preparedStatement.setString(1, userModel.getUsername());
@@ -92,7 +92,7 @@ public class UserRepository {
                 DELETE FROM users
                 WHERE id = ?
                 """;
-        try (Connection connection = DBConnectionUtils.getConnection();
+        try (Connection connection = DBConnectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
             preparedStatement.setInt(1, userId);
@@ -114,7 +114,7 @@ public class UserRepository {
                 FROM users u
                 LEFT JOIN roles r ON u.role_id = r.id;
                 """;
-        try (Connection connection = DBConnectionUtils.getConnection();
+        try (Connection connection = DBConnectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()
         ) {
@@ -148,7 +148,7 @@ public class UserRepository {
                 WHERE u.username = ? AND u.password = ?
                 """;
         try (
-                Connection connection = DBConnectionUtils.getConnection();
+                Connection connection = DBConnectionUtil.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
             preparedStatement.setString(1, username);

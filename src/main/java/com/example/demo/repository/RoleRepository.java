@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.models.RoleModel;
-import com.example.demo.utils.DBConnectionUtils;
+import com.example.demo.utils.DBConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +30,7 @@ public class RoleRepository {
                 SELECT id, name
                 FROM roles
                 """;
-        try (Connection connection = DBConnectionUtils.getConnection();
+        try (Connection connection = DBConnectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet resultSet = preparedStatement.executeQuery()
         ) {
