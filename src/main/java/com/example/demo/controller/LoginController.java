@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.LoginModel;
+import com.example.demo.models.SessionManager;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.utils.SecurityUtil;
 import javafx.animation.KeyFrame;
@@ -148,6 +149,7 @@ public class LoginController {
                         // Verify the password using the hash
                         if (SecurityUtil.verifyPassword(password, userModel.getPassword())) {
                             errorLabel.setVisible(false);
+                            SessionManager.getInstance().setCurrentUser(userModel);
                             navigateToAdministrativePanel();
                         } else {
                             errorLabel.setText("Invalid credentials.");
