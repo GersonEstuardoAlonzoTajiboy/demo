@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.LoginModel;
-import com.example.demo.models.UserModel;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.utils.SecurityUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -116,15 +118,46 @@ public class LoginController {
             return;
         }
 
-        // Query the user in the database
-        UserModel userModel = UserRepository.findUserByCredentials(loginModel.getUsername(), loginModel.getPassword());
-        if (userModel != null) {
-            errorLabel.setVisible(false);
-            navigateToAdministrativePanel();
-        } else {
-            errorLabel.setText("Invalid credentials!");
+        // Get credentials
+        final String username = loginModel.getUsername();
+        final String password = loginModel.getPassword();
+
+        // Additional security validation
+        if (!username.matches("[a-zA-Z0-9]+")) {
+            errorLabel.setText("Invalid username format.");
             errorLabel.setVisible(true);
+            return;
         }
+
+        // Disable button while processing
+        loginButton.setDisable(true);
+
+        // Perform the query asynchronously using the static repository
+        CompletableFuture.supplyAsync(() -> {
+                    try {
+                        // We use the static method to get the user by username
+                        return UserRepository.findUserByCredentials(username, password);
+                    } catch (Exception exception) {
+                        LOGGER.log(Level.SEVERE, "Error during authentication", exception);
+                        return null;
+                    }
+                })
+                .thenAccept(userModel -> Platform.runLater(() -> {
+                    loginButton.setDisable(false);
+                    if (userModel != null) {
+                        // Verify the password using the hash
+                        if (SecurityUtil.verifyPassword(password, userModel.getPassword())) {
+                            errorLabel.setVisible(false);
+                            navigateToAdministrativePanel();
+                        } else {
+                            errorLabel.setText("Invalid credentials.");
+                            errorLabel.setVisible(true);
+                        }
+                    } else {
+                        errorLabel.setText("Invalid credentials.");
+                        errorLabel.setVisible(true);
+                    }
+                }));
     }
 
     /**
