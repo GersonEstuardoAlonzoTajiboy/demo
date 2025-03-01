@@ -5,18 +5,14 @@ package com.example.demo.models;
  */
 public class SessionManager {
 
-    private static SessionManager instance;
+    private static final SessionManager INSTANCE = new SessionManager();
     private UserModel currentUser;
 
     private SessionManager() {
-        throw new UnsupportedOperationException("Model class. Do not instantiate!");
     }
 
     public static SessionManager getInstance() {
-        if (instance == null) {
-            instance = new SessionManager();
-        }
-        return instance;
+        return INSTANCE;
     }
 
     public UserModel getCurrentUser() {
