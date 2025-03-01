@@ -13,6 +13,7 @@ module com.example.demo {
     requires java.desktop;
     requires com.zaxxer.hikari;
     requires java.sql;
+    requires bcrypt;
 
     opens com.example.demo to javafx.fxml;
     opens com.example.demo.controller to javafx.fxml;
