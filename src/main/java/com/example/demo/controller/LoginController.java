@@ -3,12 +3,16 @@ package com.example.demo.controller;
 import com.example.demo.models.LoginModel;
 import com.example.demo.models.UserModel;
 import com.example.demo.repository.UserRepository;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import net.synedra.validatorfx.Validator;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -41,8 +45,11 @@ public class LoginController {
     private Label errorLabel;
 
     private Stage primaryStage;
+    private Timeline debounceTimeline;
+
     private final Validator validator = new Validator();
     private final LoginModel loginModel = new LoginModel();
+
 
     public void setPrimaryStage(Stage stage) {
         this.primaryStage = stage;
@@ -66,6 +73,10 @@ public class LoginController {
         // Disable the login button if the form is invalid (using the valid property of the model)
         loginButton.disableProperty().bind(loginModel.validProperty().not());
 
+        // Configure debounce on username and password validation
+        usernameField.addEventHandler(KeyEvent.KEY_RELEASED, event -> debounceValidation());
+        passwordField.addEventHandler(KeyEvent.KEY_RELEASED, event -> debounceValidation());
+
         // Real-time validation for the username field
         validator.createCheck()
                 .dependsOn("username", loginModel.usernameProperty())
@@ -73,6 +84,8 @@ public class LoginController {
                     String username = loginModel.getUsername();
                     if (username == null || username.trim().isEmpty()) {
                         context.error("Username is required");
+                    } else if (!username.matches("[a-zA-Z0-9]+")) {
+                        context.error("Username must be alphanumeric");
                     }
                 })
                 .decorates(usernameField)
@@ -130,5 +143,15 @@ public class LoginController {
         } catch (IOException ioException) {
             LOGGER.log(Level.SEVERE, "Error navigating to administrative panel", ioException);
         }
+    }
+
+    private void debounceValidation() {
+        if (debounceTimeline != null) {
+            debounceTimeline.stop();
+        }
+        debounceTimeline = new Timeline(new KeyFrame(Duration.millis(300), event -> {
+            validator.validate();
+        }));
+        debounceTimeline.play();
     }
 }
