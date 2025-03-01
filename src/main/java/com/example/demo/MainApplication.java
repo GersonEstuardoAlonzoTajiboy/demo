@@ -14,7 +14,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // Load the login FXML from resources/fxml/login.fxml
+        // Load the login FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         Parent root = loader.load();
 
@@ -24,7 +24,7 @@ public class MainApplication extends Application {
 
         Scene scene = new Scene(root);
 
-        // Add the application CSS from resources/css/login.css
+        // Add the application CSS
         scene.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm()
         );
