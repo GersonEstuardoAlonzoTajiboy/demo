@@ -95,7 +95,6 @@ public class AdministrativePanelController {
         }
     }
 
-
     /**
      * Loads a view into the content area using caching and asynchronous loading.
      *
