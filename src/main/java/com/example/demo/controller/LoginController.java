@@ -73,8 +73,11 @@ public class LoginController {
         usernameField.textProperty().bindBidirectional(loginModel.usernameProperty());
         passwordField.textProperty().bindBidirectional(loginModel.passwordProperty());
 
-        // Disable the login button if the form is invalid (using the valid property of the model)
-        loginButton.disableProperty().bind(loginModel.validProperty().not());
+        // Unlink the disabled property so that it can be modified manually
+        loginButton.disableProperty().unbind();
+
+        // Disable button while processing
+        loginButton.setDisable(true);
 
         // Configure debounce on username and password validation
         usernameField.addEventHandler(KeyEvent.KEY_RELEASED, event -> debounceValidation());
