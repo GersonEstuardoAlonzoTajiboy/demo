@@ -137,7 +137,6 @@ public class UserRepository {
      * Query the database to get a user based on the credentials.
      *
      * @param username User logged in.
-     * @param password Password entered.
      * @return A UserModel object if a match is found, or null otherwise.
      */
     public static UserModel findUserByCredentials(String username) {
