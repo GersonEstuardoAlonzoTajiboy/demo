@@ -4,6 +4,7 @@ import com.example.demo.models.RoleModel;
 import com.example.demo.models.UserModel;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.utils.SecurityUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -77,7 +78,11 @@ public class UserController {
             showAlert(Alert.AlertType.WARNING, "Validation", "All fields are required.");
         }
 
-        UserModel userModel = new UserModel(0, username, password, selectedRole);
+        // Hash the password before creating the user
+        String hashedPassword = SecurityUtil.hashPassword(password);
+
+        // Create the user
+        UserModel userModel = new UserModel(0, username, hashedPassword, selectedRole);
         UserRepository.insertUser(userModel);
         showAlert(Alert.AlertType.INFORMATION, "User creation", "User created successfully.");
         loadUsers();
@@ -100,8 +105,11 @@ public class UserController {
             return;
         }
 
+        // Hash the password before creating the user
+        String hashedPassword = SecurityUtil.hashPassword(password);
+
         selectedUserModel.setUsername(username);
-        selectedUserModel.setPassword(password);
+        selectedUserModel.setPassword(hashedPassword);
         selectedUserModel.setRole(selectedRole);
         UserRepository.updateUser(selectedUserModel);
         showAlert(Alert.AlertType.INFORMATION, "User updated", "User updated successfully.");
