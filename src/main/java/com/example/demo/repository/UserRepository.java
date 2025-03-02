@@ -140,7 +140,7 @@ public class UserRepository {
      * @param password Password entered.
      * @return A UserModel object if a match is found, or null otherwise.
      */
-    public static UserModel findUserByCredentials(String username, String password) {
+    public static UserModel findUserByCredentials(String username) {
         String sql = """
                 SELECT u.id, u.username, u.password, r.id AS role_id, r.name AS role_name
                 FROM users AS u
@@ -152,7 +152,6 @@ public class UserRepository {
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     // If the role is present the RoleModel object is created, otherwise it is left as null
