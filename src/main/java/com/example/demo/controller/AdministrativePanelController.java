@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.models.SessionManager;
 import com.example.demo.models.UserModel;
+import com.example.demo.utils.ViewCacheUtil;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -92,16 +94,60 @@ public class AdministrativePanelController {
 
 
     /**
-     * Loads a view into the content area.
+     * Loads a view into the content area using caching and asynchronous loading.
      *
      * @param fxmlPath path of the FXML file to load.
      */
     private void loadView(String fxmlPath) {
-        try {
-            Node view = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlPath)));
-            contentArea.getChildren().setAll(view);
-        } catch (IOException ioException) {
-            LOGGER.log(Level.SEVERE, String.format("Error loading view %s", fxmlPath), ioException);
+        // First we try to get the view from the cache
+        Node cacheView = ViewCacheUtil.getView(fxmlPath);
+        if (cacheView != null) {
+            contentArea.getChildren().setAll(cacheView);
+            return;
         }
+
+        // Configure and execute asynchronous loading
+        Task<Node> loadTask = createViewLoadingTask(fxmlPath);
+        startBackgroundThread(loadTask);
+    }
+
+    /**
+     * Creates and configures a Task for asynchronous view loading.
+     *
+     * @param fxmlPath FXML file path to load.
+     * @return Configured Task instance with success/error handlers.
+     */
+    private Task<Node> createViewLoadingTask(String fxmlPath) {
+        Task<Node> loadTask = new Task<>() {
+            @Override
+            protected Node call() throws Exception {
+                return ViewCacheUtil.loadView(fxmlPath);
+            }
+        };
+
+        // Success handler: Update UI with loaded view
+        loadTask.setOnSucceeded(event -> {
+            Node view = loadTask.getValue();
+            contentArea.getChildren().setAll(view);
+        });
+
+        // Error handler: Log exception with proper message formatting
+        loadTask.setOnFailed(event -> {
+            Throwable throwable = loadTask.getException();
+            LOGGER.log(Level.SEVERE, throwable, () -> "Error loading view" + fxmlPath);
+        });
+        return loadTask;
+    }
+
+    /**
+     * Starts thread for task execution to prevent UI blocking.
+     *
+     * @param task Task to execute in background.
+     */
+    private void startBackgroundThread(Task<Node> task) {
+        // Use a thread to allow graceful shutdown of the JVM
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
     }
 }
