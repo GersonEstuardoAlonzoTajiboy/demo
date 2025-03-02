@@ -145,7 +145,7 @@ public class UserRepository {
                 SELECT u.id, u.username, u.password, r.id AS role_id, r.name AS role_name
                 FROM users AS u
                 LEFT JOIN roles AS r ON r.id = u.role_id
-                WHERE u.username = ? AND u.password = ?
+                WHERE u.username = ?
                 """;
         try (
                 Connection connection = DBConnectionUtil.getConnection();
