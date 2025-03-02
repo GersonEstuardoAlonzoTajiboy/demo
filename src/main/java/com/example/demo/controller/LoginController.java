@@ -140,7 +140,7 @@ public class LoginController {
         CompletableFuture.supplyAsync(() -> {
                     try {
                         // We use the static method to get the user by username
-                        return UserRepository.findUserByCredentials(username, password);
+                        return UserRepository.findUserByCredentials(username);
                     } catch (Exception exception) {
                         LOGGER.log(Level.SEVERE, "Error during authentication", exception);
                         return null;
