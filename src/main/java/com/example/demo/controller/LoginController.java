@@ -130,6 +130,9 @@ public class LoginController {
             return;
         }
 
+        // Unbind the property so that it can be modified manually
+        loginButton.disableProperty().unbind();
+
         // Disable button while processing
         loginButton.setDisable(true);
 
@@ -144,7 +147,8 @@ public class LoginController {
                     }
                 })
                 .thenAccept(userModel -> Platform.runLater(() -> {
-                    loginButton.setDisable(false);
+                    // Rebind the property to restore automatic behavior
+                    loginButton.disableProperty().bind(loginModel.validProperty().not());
                     if (userModel != null) {
                         // Verify the password using the hash
                         if (SecurityUtil.verifyPassword(password, userModel.getPassword())) {
