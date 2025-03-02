@@ -87,6 +87,9 @@ public class AdministrativePanelController {
             loginScene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/login.css")).toExternalForm());
             stage.setScene(loginScene);
             stage.setTitle("Login");
+
+            // Clear the current session
+            SessionManager.getInstance().setCurrentUser(null);
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Error loading login screen during logout", ex);
         }
